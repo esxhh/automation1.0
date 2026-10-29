@@ -17,7 +17,7 @@ Visitors can create an account, sign in, and access a session-protected account 
   - "Free AI visibility check" form saves requests (`/api/audit/`).
   - Both have validation, a hidden honeypot field, CSRF protection, a per-IP rate limit, and optional email notification.
   - Admin at `/admin/` to read enquiries, mark them handled, and edit the **Services** and **FAQs** shown on the page.
-- **Frontend:** warm paper and terracotta palette, editorial serif headings, responsive navigation and layouts, service detail pages, customer assistant, live form validation, savings estimator, and FAQ accordion.
+- **Frontend:** an iridescent midnight palette, editorial serif headings, a keyboard-accessible menu-slider through real site sections, responsive layouts, service detail pages, customer assistant, live form validation, savings estimator, and FAQ accordion.
 
 Default contact details are `eshanmahey17@gmail.com` and WhatsApp `9258679510`. They can be changed with `CONTACT_EMAIL`, `CONTACT_PHONE`, and `WHATSAPP_PHONE` environment variables.
 

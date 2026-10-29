@@ -36,6 +36,15 @@ class HomeTests(TestCase):
             link = f'href="{reverse("service-detail", args=[slug])}" target="_blank" rel="noopener"'
             self.assertContains(response, link)
 
+    def test_menu_slider_links_to_real_home_sections(self):
+        response = self.client.get(reverse("home"))
+        for section in ("hero", "services", "proof", "insights", "process", "aeo", "savings", "faq", "contact"):
+            with self.subTest(section=section):
+                self.assertContains(response, f'href="#{section}"')
+        self.assertContains(response, 'aria-controls="mainNav"')
+        self.assertContains(response, 'aria-live="polite"')
+        self.assertContains(response, reverse("proof-demo"))
+
     def test_service_detail_pages_render(self):
         titles = {
             "personalised-ai-agents": "Personalised AI agents",
