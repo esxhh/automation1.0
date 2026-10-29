@@ -1,0 +1,87 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ service.title }} | {{ brand }}</title>
+<meta name="description" content="Learn how {{ brand }} delivers {{ service.title|lower }} for your business.">
+<meta name="theme-color" content="#F8F6F2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='1' y='1' width='30' height='30' fill='%23F8F6F2' stroke='%23A84F36'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia' font-size='22' fill='%23A84F36'%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a href="/" class="logo">{% include "core/brand_mark.html" %}{{ brand }}</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="detailNav" aria-label="Open navigation menu"><span></span><span></span></button>
+    <nav class="links" id="detailNav" aria-label="Main">
+      <a href="/#services">All services</a>
+      {% if user.is_authenticated %}
+      <a href="{% url 'account' %}">My account</a>
+      <form method="post" action="{% url 'logout' %}" class="nav-logout">{% csrf_token %}<button type="submit" class="text-action">Sign out</button></form>
+      {% else %}
+      <a href="{% url 'login' %}">Sign in</a>
+      {% endif %}
+      <a href="/#contact" class="btn small">Book a consultation</a>
+    </nav>
+  </div>
+</header>
+<main class="service-detail">
+  <section class="service-detail-hero">
+    <div class="wrap">
+      <a class="detail-back" href="/#services">&larr; All services</a>
+      <div class="eyebrow">{{ service.eyebrow }}</div>
+      <h1>{{ service.title }}</h1>
+      <p class="lede">{{ service.intro }}</p>
+      <a class="btn" href="/#contact">Talk about your workflow</a>
+      <figure class="service-detail-image"><img src="{{ service.image.url }}" alt="{{ service.image.alt }}" fetchpriority="high"><figcaption>Thoughtful systems, shaped around real work.</figcaption></figure>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap narrow">
+      <div class="head">
+        <div class="eyebrow">The service</div>
+        <h2>Built around how your business works.</h2>
+        <p class="lede">{{ service.overview }}</p>
+      </div>
+      <p class="detail-fit"><strong>Best suited to:</strong> {{ service.fit }}</p>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap">
+      <div class="detail-grid">
+        <article class="detail-panel">
+          <h3>What this service can do</h3>
+          <ul>{% for item in service.outcomes %}<li>{{ item }}</li>{% endfor %}</ul>
+        </article>
+        <article class="detail-panel">
+          <h3>Examples</h3>
+          <ul>{% for item in service.examples %}<li>{{ item }}</li>{% endfor %}</ul>
+        </article>
+        <article class="detail-panel">
+          <h3>How we deliver it</h3>
+          <ol>{% for item in service.process %}<li>{{ item }}</li>{% endfor %}</ol>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="detail-cta">
+        <div class="detail-cta-copy">
+          <h2>Let’s find the right first step.</h2>
+          <p>Tell us what your team needs and we’ll discuss a practical scope for your business.</p>
+        </div>
+        <a class="btn" href="/#contact">Book a free consultation</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="detail-footer"><div class="wrap"><span>© {{ brand }}. All rights reserved.</span><div class="flinks"><a href="mailto:{{ contact_email }}">{{ contact_email }}</a><a href="https://wa.me/{{ whatsapp_phone }}" target="_blank" rel="noopener">WhatsApp 9258679510</a><a href="/#services">Explore all services</a></div></div></footer>
+{% include "core/assistant_widget.html" %}
+<script src="{% static 'js/assistant.js' %}" defer></script>
+</body>
+</html>
